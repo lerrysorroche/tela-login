@@ -1,0 +1,44 @@
+name: Continuous Delivery - Deploy para GitHub Pages
+
+on:
+  push:
+    branches: ["branch-cd"]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Executar o build (Vite)
+        run: npm run build
+
+      - name: Configurar o GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Fazer upload da pasta de build
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./dist"
+
+      - name: Publicar no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
