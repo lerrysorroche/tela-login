@@ -2,7 +2,7 @@ name: Continuous Delivery - Deploy para GitHub Pages
 
 on:
   push:
-    branches: ["branch-cd"]
+    branches: ["main"]
 
 permissions:
   contents: read
