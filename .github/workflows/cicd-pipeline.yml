@@ -1,4 +1,4 @@
-name: Pipeline CI/CD Completo
+name: Pipeline CI/CD Completo com Docker
 
 on:
   push:
@@ -14,14 +14,13 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    container:
+      image: node:20
+
     steps:
       - name: Checkout do código
         uses: actions/checkout@v4
-
-      - name: Configurar Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
 
       - name: Instalar dependências
         run: npm install
@@ -36,9 +35,7 @@ jobs:
 
   deploy:
     needs: build
-
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
