@@ -48,3 +48,17 @@ jobs:
       - name: Publicar no GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Notificar Discord (Sucesso)
+        if: success()
+        run: |
+          curl -H "Content-Type: application/json" \
+          -d '{"content": "SUCESSO! O pipeline terminou e a nova versão está no ar!\n🔗 Acesse aqui: ${{ steps.deployment.outputs.page_url }}"}' \
+          ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+      - name: Notificar Discord (Falha)
+        if: failure()
+        run: |
+          curl -H "Content-Type: application/json" \
+          -d '{"content": "FALHA! Ocorreu um erro no pipeline de deploy do projeto. Verifique os logs no GitHub Actions."}' \
+          ${{ secrets.DISCORD_WEBHOOK_URL }}
