@@ -25,6 +25,9 @@ jobs:
       - name: Instalar dependências
         run: npm install
 
+      - name: Rodar Testes Unitários
+        run: npm run test
+
       - name: Executar o Build (Vite)
         run: npm run build
 
