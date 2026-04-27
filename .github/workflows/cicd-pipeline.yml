@@ -53,7 +53,7 @@ jobs:
         if: success()
         run: |
           curl -H "Content-Type: application/json" \
-          -d '{"content": "SUCESSO #2! O pipeline terminou e a nova versão está no ar!\n🔗 Acesse aqui: ${{ steps.deployment.outputs.page_url }}"}' \
+          -d '{"content": "SUCESSO #3! O pipeline terminou e a nova versão está no ar!\n🔗 Acesse aqui: ${{ steps.deployment.outputs.page_url }}"}' \
           ${{ secrets.DISCORD_WEBHOOK_URL }}
 
       - name: Notificar Discord (Falha)
