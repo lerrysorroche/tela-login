@@ -21,6 +21,7 @@ function Login() {
       <div className="inputs-container">
         <input
           type="text"
+          placeholder="E-mail"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="input-field"
@@ -28,6 +29,7 @@ function Login() {
 
         <input
           type="password"
+          placeholder="Senha"
           value={senha}
           onChange={(e) => setSenha(e.target.value)}
           className="input-field"
